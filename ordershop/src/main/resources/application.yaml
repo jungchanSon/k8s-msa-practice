@@ -1,0 +1,29 @@
+spring.application.name: ordershop
+server:
+  port: 8095
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3326/ordershop?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    username: root
+    password: root
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        storage_engine: innodb
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show_sql: true
+  cloud:
+    inetutils:
+      ignored-interfaces: eth1*
+      preferred-networks: 192.168
+
+eureka:
+  instance:
+    prefer-ip-address: true
