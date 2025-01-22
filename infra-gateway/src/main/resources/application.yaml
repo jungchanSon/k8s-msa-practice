@@ -1,5 +1,12 @@
+spring:
+  profiles:
+    active: container
+---
 spring.application.name: gateway
 spring:
+  config:
+    activate:
+      on-profile: dev
   cloud:
     inetutils:
       ignored-interfaces: eth1*
@@ -9,4 +16,20 @@ eureka:
   instance:
     prefer-ip-address: true
 
+---
+spring.application.name: gateway
+spring:
+  config:
+    activate:
+      on-profile: container
+  cloud:
+    inetutils:
+      ignored-interfaces: eth1*
+      preferred-networks: 192.168
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://kiwi-infra-eureka:8761/eureka
+  instance:
+    prefer-ip-address: true
