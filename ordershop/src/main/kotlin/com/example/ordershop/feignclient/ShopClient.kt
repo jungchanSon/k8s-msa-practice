@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@FeignClient(name="shop", url = "http://localhost:8080/api/shop")
+@FeignClient(name="shop")
 interface ShopClient {
 
-    @GetMapping("/read/{shopId}")
+    @GetMapping("/api/shop/read/{shopId}")
     fun getShop(@PathVariable("shopId") shopId: Long): ResponseEntity<ShopFeignDto.Response>
 
-    @PostMapping("/create")
+    @PostMapping("/api/shop/create")
     fun createShop(@RequestBody request: ShopFeignDto.Request): ResponseEntity<Long>
 }

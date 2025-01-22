@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-@FeignClient(name="order", url = "http://localhost:8080/api/order")
+@FeignClient(name="order")
 interface OrderClient {
 
-    @GetMapping("/read/{orderId}")
+    @GetMapping("/api/order/read/{orderId}")
     fun getOrder(@PathVariable("orderId") orderId: Long): ResponseEntity<OrderFeignDto.Response>
 
-    @PostMapping("/create")
+    @PostMapping("/api/order/create")
     fun createOrder(@RequestBody request: OrderFeignDto.Request): ResponseEntity<Long>
 }

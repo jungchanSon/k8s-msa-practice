@@ -1,12 +1,12 @@
 spring:
   profiles:
-    active: container
+    default: local
 ---
 spring.application.name: gateway
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: local
   cloud:
     inetutils:
       ignored-interfaces: eth1*

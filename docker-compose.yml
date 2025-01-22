@@ -1,6 +1,7 @@
 networks:
   kiwi-service-network:
     driver: bridge
+    external: true
 
 services:
   kiwi-infra-eureka:
@@ -23,7 +24,8 @@ services:
       context: ./infra-gateway
       dockerfile: Dockerfile
     depends_on:
-      - kiwi-infra-eureka
+      kiwi-infra-eureka:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 3s
@@ -31,8 +33,64 @@ services:
       retries: 10
     ports:
       - "8080:8080"
-#    environment:
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://kiwi-infra-eureka:8761/eureka
+    environment:
+      - "SPRING_PROFILES_ACTIVE=container"
     networks:
       - kiwi-service-network
 
+  kiwi-order:
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    depends_on:
+      kiwi-infra-eureka:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8090/actuator/health || exit 1"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "8090:8090"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=container"
+    networks:
+      - kiwi-service-network
+
+  kiwi-ordershop:
+    build:
+      context: ./ordershop
+      dockerfile: Dockerfile
+    depends_on:
+      kiwi-infra-eureka:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8095/actuator/health || exit 1"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "8095:8095"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=container"
+    networks:
+      - kiwi-service-network
+
+  kiwi-shop:
+    build:
+      context: ./shop
+      dockerfile: Dockerfile
+    depends_on:
+      kiwi-infra-eureka:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8085/actuator/health || exit 1"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "8085:8085"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=container"
+    networks:
+      - kiwi-service-network

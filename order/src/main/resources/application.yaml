@@ -1,7 +1,15 @@
+spring:
+  profiles:
+    default: local
+
+---
 spring.application.name: order
 server:
   port: 8090
 spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/order?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
@@ -28,4 +36,39 @@ eureka:
   instance:
     prefer-ip-address: true
 
+---
+spring.application.name: order
+server:
+  port: 8090
+spring:
+  config:
+    activate:
+      on-profile: container
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://kiwi-db-order:3306/order?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul"
+    username: root
+    password: root
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        storage_engine: innodb
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show_sql: true
+  cloud:
+    inetutils:
+      ignored-interfaces: eth1*
+      preferred-networks: 192.168
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://kiwi-infra-eureka:8761/eureka
+  instance:
+    prefer-ip-address: true
