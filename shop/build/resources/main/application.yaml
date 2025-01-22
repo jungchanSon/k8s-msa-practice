@@ -19,10 +19,12 @@ spring:
       ddl-auto: create
     open-in-view: false
     show_sql: true
+
+  cloud:
+    inetutils:
+      ignored-interfaces: eth1*
+      preferred-networks: 192.168
+
 eureka:
   instance:
-    hostname: 192.168.1.100
-    ip-address:  192.168.1.100
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
+    prefer-ip-address: true

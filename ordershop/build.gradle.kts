@@ -1,3 +1,8 @@
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.5")
+    }
+}
 tasks.getByName("bootJar") {
     enabled = true
 }
@@ -16,6 +21,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.3")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     runtimeOnly("com.mysql:mysql-connector-j")
 
     implementation("org.mapstruct:mapstruct:1.5.5.Final")

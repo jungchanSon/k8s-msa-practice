@@ -3,9 +3,12 @@ package com.example.ordershop.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "orders")
+@Table(name = "ordershop")
 open class Ordershop (
-    name: String,
+    orderId: Long,
+    orderName: String,
+    shopId: Long,
+    shopName: String,
 ) {
 
     @Id
@@ -13,7 +16,17 @@ open class Ordershop (
     open var id: Long = 0
     protected set
 
-    open var name: String = name
+    open var orderId = orderId
     protected set
+
+    open var orderName = orderName
+    protected set
+
+    open var shopId = shopId
+    protected set
+
+    open var shopName = shopName
+    protected set
+
 
 }

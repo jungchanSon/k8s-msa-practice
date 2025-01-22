@@ -17,10 +17,15 @@ class Route {
             r.path("/api/order/**")
                 .uri("lb://ORDER")
         }
+        .route("ordershop") {
+            r: PredicateSpec ->
+            r.path("/api/ordershop/**")
+                .uri("lb://ORDERSHOP")
+        }
         .route("shop") {
             r: PredicateSpec ->
             r.path("/api/shop/**")
-                .uri("http://localhost:8085/")
+                .uri("lb://SHOP")
         }
         .build()
 }

@@ -1,1 +1,12 @@
 spring.application.name: gateway
+spring:
+  cloud:
+    inetutils:
+      ignored-interfaces: eth1*
+      preferred-networks: 192.168
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+

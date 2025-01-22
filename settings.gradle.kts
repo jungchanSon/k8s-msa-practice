@@ -1,7 +1,6 @@
 rootProject.name = "demo"
 
 include(
-    "infra-db",
     "infra-eureka",
     "infra-gateway",
     "ordershop",
