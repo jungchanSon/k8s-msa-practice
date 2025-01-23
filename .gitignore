@@ -230,3 +230,9 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/git,intellij,java,kotlin,windows,macos
 /build/
 /build/**
+/infra-eureka/build/
+/order/build/
+/infra-gateway/build/
+/ordershop/build/
+/shop/.gradle/
+/shop/build/
