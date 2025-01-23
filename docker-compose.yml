@@ -10,7 +10,9 @@ services:
       dockerfile: Dockerfile
     container_name: kiwi-infra-eureka
     ports:
-      - "8761:8761"
+      - "8761-8765:8761"
+    deploy:
+      replicas: 3
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
       interval: 3s
@@ -33,6 +35,8 @@ services:
       retries: 10
     ports:
       - "8080:8080"
+    deploy:
+      replicas: 3
     environment:
       - "SPRING_PROFILES_ACTIVE=container"
     networks:
@@ -51,7 +55,9 @@ services:
       timeout: 10s
       retries: 10
     ports:
-      - "8090:8090"
+      - "8090-8094:8090"
+    deploy:
+      replicas: 3
     environment:
       - "SPRING_PROFILES_ACTIVE=container"
     networks:
@@ -64,13 +70,15 @@ services:
     depends_on:
       kiwi-infra-eureka:
         condition: service_healthy
+    deploy:
+      replicas: 3
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8095/actuator/health || exit 1"]
       interval: 3s
       timeout: 10s
       retries: 10
     ports:
-      - "8095:8095"
+      - "8095-8099:8095"
     environment:
       - "SPRING_PROFILES_ACTIVE=container"
     networks:
@@ -88,8 +96,10 @@ services:
       interval: 3s
       timeout: 10s
       retries: 10
+    deploy:
+      replicas: 3
     ports:
-      - "8085:8085"
+      - "8085-8089:8085"
     environment:
       - "SPRING_PROFILES_ACTIVE=container"
     networks:
